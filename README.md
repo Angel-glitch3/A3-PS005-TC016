@@ -1,94 +1,104 @@
-# AIORI-3-HACKATHON-PROJECTS
-This repository will contain the code and resources for the AIORI-3 hackathon that will be developed during the AIORI-3
-PS-035: Evidence-Based Operator Network Fault Localisation
-> **AIORI Hackathon 3 | Category: Cybersecurity**
-A software-based network fault localisation project that correlates network topology, syslog events, and active ping measurements to rank probable root causes and explain the evidence behind each diagnosis.
-🎥 Project Video
-PS-035 | Evidence-Based Operator Network Fault Localisation | AIORI Hackathon 3
-📌 Problem Statement
-When a network link or router fails, network operations teams may receive many related alarms, such as interface state changes, BGP session drops, and latency warnings. These alarms may be symptoms of one underlying fault, making manual root-cause identification time-consuming.
-This project aims to build a fault-localisation engine for a controlled five-node network lab. It combines topology definitions, operator logs, and active measurements to rank likely faults and provide evidence for its predictions.
-🎯 Objectives
-Create a five-node instrumented network topology.
-Implement five labelled, seeded fault scenarios.
-Correlate topology information, syslog events, and active ping measurements.
-Build an explainable rule-based diagnostic baseline first.
-Optionally add one AI model after the baseline is working.
-Report top-1 and top-3 diagnostic predictions with supporting evidence.
-Evaluate performance on held-out test runs.
-Identify cases where the available evidence is insufficient to support a conclusion.
-🧠 Proposed Solution
-Create the lab: Define five network nodes and their connections.
-Inject a fault: Activate one of the controlled fault scenarios.
-Collect evidence: Gather logs, topology details, and ping outcomes such as reachability, latency, and packet loss.
-Normalise and correlate: Align timestamps and associate events and measurements with affected nodes, links, and paths.
-Rank candidate causes: Use topology-aware rules to score possible faults.
-Explain the result: Display the top-ranked candidates, supporting or conflicting evidence, and an insufficient-evidence status when appropriate.
-Evaluate: Measure top-1 and top-3 accuracy on held-out runs. An optional AI model can be compared with the rule-based baseline.
-> **Safety and scope:** The system is intended to diagnose faults in a controlled lab. It does not automatically remediate network faults and must not claim guaranteed root-cause identification.
-🧪 Example Fault Scenarios
-These are proposed scenarios; document the exact fault-injection method used in the final implementation.
-Link failure — a connection between two nodes becomes unavailable.
-Router failure — a node becomes unreachable.
-High latency — delay is introduced on a link or path.
-Packet loss — some packets are deliberately dropped.
-Routing-session failure — a simulated BGP session goes down while the physical link may remain available.
-🏗️ Proposed Technology Stack
-Component	Proposed tools	Purpose
-Network lab	Python simulation or Mininet	Model the five-node topology and inject faults
-Processing	Python, Pandas	Parse and normalise events and measurements
-Topology analysis	NetworkX or Python graph structures	Represent nodes, links, and paths
-Diagnostic baseline	Python rule-based logic	Rank candidate root causes
-Optional AI	scikit-learn	Train and evaluate one diagnostic model
-Backend	Flask or FastAPI	Serve diagnostic results
-Dashboard	Lightweight web interface	Display topology, alarms, rankings, and evidence
-Evaluation	Python and scikit-learn metrics	Calculate held-out top-1/top-3 accuracy
-These are proposed technologies, not a claim that every component has already been implemented.
-📊 Evaluation Plan
-The project will evaluate the diagnostic engine using held-out fault-injection runs.
-Top-1 accuracy: Percentage of test cases where the first-ranked diagnosis matches the injected fault.
-Top-3 accuracy: Percentage of test cases where the actual fault appears among the three highest-ranked diagnoses.
-Evidence quality: Check whether the evidence shown genuinely supports the predicted fault.
-Uncertainty handling: Check whether the system identifies cases where evidence is inadequate.
-Baseline comparison: If an AI model is implemented, compare it with the rule-based baseline on the same held-out evaluation.
-Results: Add accuracy values and performance claims only after experiments have been run. No results are claimed in this README.
-📦 Expected Deliverables
-Five-node fault-injection lab.
-Labelled dataset for the fault scenarios.
-Topology and log collection pipeline.
-Active measurement module.
-Rule-based correlation and diagnosis engine.
-Optional AI diagnostic model.
-Explanation interface for ranked predictions.
-Held-out top-1/top-3 evaluation.
-Analysis of unsupported conclusions.
-Technical report and prototype demonstration.
-🚀 Getting Started
-The exact setup commands depend on the implementation in the repository. Once the code and dependency files are added, update this section with tested installation and run commands.
-A typical Python project setup may look like:
-```bash
-git clone <YOUR-REPOSITORY-URL>
-cd <YOUR-REPOSITORY-FOLDER>
-python -m venv .venv
-```
-Activate the environment:
-Windows (PowerShell):
-```powershell
-.venv\Scripts\Activate.ps1
-```
-macOS / Linux:
-```bash
-source .venv/bin/activate
-```
-Install dependencies after adding a `requirements.txt`:
-```bash
-pip install -r requirements.txt
-```
-Then follow the run instructions for the implemented application. These are setup examples, not a claim that the project is already runnable.
-📁 Suggested Repository Structure
+
+# PS-035: Evidence-Based Operator Network Fault Localisation
+
+**AIORI Hackathon 3 | Category: Cybersecurity**
+
+A software-based network fault localisation system that correlates network topology, Syslog events, and active ping measurements to rank probable root causes and explain the evidence behind each diagnosis.
+
+## 🎥 Project Presentation
+
+[**Watch the Project Presentation on YouTube**](https://youtu.be/pOYqJGth2pU)
+
+## 📌 Problem Statement
+
+When a network link or router fails, network administrators may receive multiple related alarms, including interface state changes, routing-session failures, latency warnings, and packet loss.
+
+These alarms may be symptoms of a single underlying fault. Identifying the actual root cause manually can be time-consuming and requires correlating information from multiple sources.
+
+This project proposes an evidence-based fault localisation engine for a controlled five-node network lab. It combines topology information, operator logs, and active network measurements to rank probable fault locations and provide supporting evidence.
+
+## 🎯 Objectives
+
+- Design a five-node network topology for controlled testing.
+- Define five labelled fault scenarios for evaluation.
+- Collect and correlate topology, Syslog, and active ping measurements.
+- Develop an explainable, rule-based diagnostic baseline.
+- Optionally evaluate a machine-learning model against the baseline.
+- Report Top-1 and Top-3 diagnostic accuracy on held-out test runs.
+- Identify cases where the evidence is insufficient for a reliable diagnosis.
+
+## 💡 Proposed Solution
+
+The proposed system follows these steps:
+
+1. **Network Lab Setup:** Define five network nodes and their connections.
+2. **Fault Injection:** Introduce a controlled fault into the network.
+3. **Evidence Collection:** Gather logs, topology information, reachability, latency, and packet-loss measurements.
+4. **Normalisation and Correlation:** Align timestamps and associate events with affected nodes, links, and paths.
+5. **Candidate Ranking:** Apply topology-aware rules to score probable fault locations.
+6. **Evidence-Based Diagnosis:** Present ranked candidates with supporting or conflicting evidence.
+7. **Evaluation:** Measure diagnostic performance on held-out fault-injection runs.
+
+The system should report an inconclusive diagnosis when the available evidence does not justify a reliable conclusion.
+
+## 🧪 Fault Scenarios
+
+| Fault Scenario | Description |
+|---|---|
+| Link Failure | A connection between two network nodes becomes unavailable. |
+| Router Failure | A network node becomes unreachable. |
+| High Latency | Artificial delay is introduced on a link or path. |
+| Packet Loss | Some network packets are deliberately dropped. |
+| Routing-Session Failure | A simulated BGP session fails while the physical link may remain available. |
+
+The final implementation should document the actual fault-injection methods used for each scenario.
+
+## 🏗️ Proposed Technology Stack
+
+| Component | Proposed Technology | Purpose |
+|---|---|---|
+| Network Lab | Python simulation or Mininet | Model the topology and inject faults |
+| Data Processing | Python, Pandas | Parse and normalise evidence |
+| Topology Analysis | NetworkX or Python graph structures | Represent nodes, links, and paths |
+| Diagnostic Engine | Python rule-based logic | Rank probable fault locations |
+| Optional AI/ML | scikit-learn | Train and evaluate a diagnostic model |
+| Backend API | Flask or FastAPI | Serve diagnostic results |
+| Dashboard | Lightweight web interface | Display alarms, rankings, and evidence |
+| Evaluation | Python and scikit-learn metrics | Calculate diagnostic performance |
+
+**Note:** These technologies describe the proposed design. The final README should reflect the tools and components actually implemented.
+
+## 📊 Evaluation Plan
+
+The diagnostic engine will be evaluated using held-out fault-injection runs.
+
+- **Top-1 Accuracy:** Percentage of test cases where the correct fault is ranked first.
+- **Top-3 Accuracy:** Percentage of test cases where the correct fault appears among the three highest-ranked candidates.
+- **Evidence Quality:** Whether the evidence presented supports the predicted fault.
+- **Uncertainty Handling:** Whether the system identifies cases with insufficient evidence.
+- **Baseline Comparison:** Compare the rule-based engine with an optional AI/ML model using the same held-out test cases.
+
+Results and performance claims will be added only after experiments have been conducted. No experimental results are claimed in this README.
+
+## 📦 Expected Deliverables
+
+- Five-node network lab and fault-injection scenarios.
+- Labelled dataset containing fault scenarios and ground truth.
+- Topology and evidence collection pipeline.
+- Active network measurement module.
+- Rule-based fault correlation and diagnosis engine.
+- Optional machine-learning diagnostic model.
+- Interface for displaying ranked predictions and supporting evidence.
+- Held-out Top-1 and Top-3 evaluation.
+- Analysis of inconclusive diagnoses and system limitations.
+- Technical report and prototype demonstration.
+
+## 📁 Proposed Repository Structure
+
 ```text
-.
+PS-035-Fault-Localisation/
 ├── README.md
+├── requirements.txt
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -98,29 +108,88 @@ Then follow the run instructions for the implemented application. These are setu
 ├── diagnosis/
 ├── dashboard/
 ├── evaluation/
-├── docs/
-└── requirements.txt
+└── docs/
 ```
-This is a suggested structure; adjust it to match the actual repository.
-🔐 Scope and Limitations
-Designed for a controlled lab, not unrestricted production-network control.
-Similar symptoms may have different causes; diagnosis should remain evidence-based.
-The system should surface conflicting evidence and abstain from a definitive conclusion when evidence is insufficient.
-Automated remediation is out of scope.
-AI is optional; the rule-based baseline is the required starting point.
-🤝 Collaboration and Hackathon Deliverables
-For the AIORI-3 PS-035 submission, the problem statement specifies:
-Create a private GitHub repository named after the team.
-Add `aiori-hackathon` as a collaborator.
-Follow the organisers' repository ownership-transfer instructions after collaboration is accepted.
-Upload the PDF following `Proposed-structure-hackathon.pdf`.
-Demonstrate the prototype to the mentor with a pseudocode snippet.
-Follow the latest instructions provided by the hackathon organisers.
-👥 Team
-Team name: 'A3-PS005-TC016`
-Team members: `Angel Shiju,N.Muthukrishnan`
-📚 Reference
-AIORI-3 Hackathon, PS-035: Evidence-Based Operator Network Fault Localisation.
-Video: PS-035 | Evidence-Based Operator Network Fault Localisation | AIORI Hackathon 3
-https://youtu.be/pOYqJGth2pU
-Built for AIORI Hackathon 3 · Cybersecurity · PS-035
+
+This is a suggested structure. Update it to match the actual files and folders in the repository.
+
+## 🚀 Getting Started
+
+The setup instructions depend on the final implementation. Once the source code and dependency files are available, add verified installation and execution commands here.
+
+### 1. Clone the repository
+
+```bash
+git clone <YOUR-REPOSITORY-URL>
+cd <YOUR-REPOSITORY-FOLDER>
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+### 3. Activate the environment
+
+**Windows PowerShell:**
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**Linux or macOS:**
+
+```bash
+source .venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+These commands are setup examples, not confirmation that the application is currently runnable. Add the actual run command after verifying the implementation.
+
+## 🔐 Scope and Limitations
+
+- Designed for fault diagnosis in a controlled network lab.
+- Does not automatically repair or reconfigure network devices.
+- Similar symptoms may have different underlying causes.
+- Missing telemetry must not automatically be interpreted as a healthy device.
+- The system should report uncertainty when evidence is insufficient or contradictory.
+- AI/ML is optional; the rule-based diagnostic baseline is the starting point.
+- Performance in a controlled lab does not guarantee equivalent performance in production networks.
+
+## 🤝 Hackathon Submission Requirements
+
+For the AIORI-3 PS-035 submission, follow the latest instructions provided by the organisers:
+
+- Create the required private GitHub repository using the team name.
+- Add `aiori-hackathon` as a collaborator.
+- Follow the organisers' repository ownership-transfer instructions after collaboration is accepted.
+- Upload the PDF in accordance with `Proposed-structure-hackathon.pdf`.
+- Demonstrate the prototype to the mentor, including a pseudocode snippet.
+
+## 👥 Team
+
+**Team Code:** `A3-PS005-TC016`
+**Team Name:** `AstroX`
+
+**Team Members:**
+- Angel Shiju
+- N. Muthukrishnan
+  
+**Mentor:**
+- Rakoth Kandan Sambandam
+
+## 📚 Reference
+
+AIORI-3 Hackathon, Problem Statement PS-035: *Evidence-Based Operator Network Fault Localisation*.
+
+**Project Video:** https://youtu.be/pOYqJGth2pU
+
+---
+
+*Developed for AIORI Hackathon 3 | Cybersecurity | PS-035*
