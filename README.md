@@ -5,11 +5,11 @@
 
 A software-based network fault localisation system that correlates network topology, Syslog events, and active ping measurements to rank probable root causes and explain the evidence behind each diagnosis.
 
-## 🎥 Project Presentation
+## Project Presentation
 
-[**Watch the Project Presentation on YouTube**](https://youtu.be/pOYqJGth2pU)
+[Watch the Project Presentation on YouTube](https://youtu.be/pOYqJGth2pU)
 
-## 📌 Problem Statement
+## Problem Statement
 
 When a network link or router fails, network administrators may receive multiple related alarms, including interface state changes, routing-session failures, latency warnings, and packet loss.
 
@@ -17,7 +17,7 @@ These alarms may be symptoms of a single underlying fault. Identifying the actua
 
 This project proposes an evidence-based fault localisation engine for a controlled five-node network lab. It combines topology information, operator logs, and active network measurements to rank probable fault locations and provide supporting evidence.
 
-## 🎯 Objectives
+## Objectives
 
 - Design a five-node network topology for controlled testing.
 - Define five labelled fault scenarios for evaluation.
@@ -27,7 +27,7 @@ This project proposes an evidence-based fault localisation engine for a controll
 - Report Top-1 and Top-3 diagnostic accuracy on held-out test runs.
 - Identify cases where the evidence is insufficient for a reliable diagnosis.
 
-## 💡 Proposed Solution
+## Proposed Solution
 
 The proposed system follows these steps:
 
@@ -41,7 +41,7 @@ The proposed system follows these steps:
 
 The system should report an inconclusive diagnosis when the available evidence does not justify a reliable conclusion.
 
-## 🧪 Fault Scenarios
+## Fault Scenarios
 
 | Fault Scenario | Description |
 |---|---|
@@ -53,7 +53,7 @@ The system should report an inconclusive diagnosis when the available evidence d
 
 The final implementation should document the actual fault-injection methods used for each scenario.
 
-## 🏗️ Proposed Technology Stack
+## Proposed Technology Stack
 
 | Component | Proposed Technology | Purpose |
 |---|---|---|
@@ -68,7 +68,7 @@ The final implementation should document the actual fault-injection methods used
 
 **Note:** These technologies describe the proposed design. The final README should reflect the tools and components actually implemented.
 
-## 📊 Evaluation Plan
+## Evaluation Plan
 
 The diagnostic engine will be evaluated using held-out fault-injection runs.
 
@@ -80,7 +80,7 @@ The diagnostic engine will be evaluated using held-out fault-injection runs.
 
 Results and performance claims will be added only after experiments have been conducted. No experimental results are claimed in this README.
 
-## 📦 Expected Deliverables
+## Expected Deliverables
 
 - Five-node network lab and fault-injection scenarios.
 - Labelled dataset containing fault scenarios and ground truth.
@@ -93,66 +93,7 @@ Results and performance claims will be added only after experiments have been co
 - Analysis of inconclusive diagnoses and system limitations.
 - Technical report and prototype demonstration.
 
-## 📁 Proposed Repository Structure
-
-```text
-PS-035-Fault-Localisation/
-├── README.md
-├── requirements.txt
-├── data/
-│   ├── raw/
-│   └── processed/
-├── topology/
-├── simulator/
-├── collectors/
-├── diagnosis/
-├── dashboard/
-├── evaluation/
-└── docs/
-```
-
-This is a suggested structure. Update it to match the actual files and folders in the repository.
-
-## 🚀 Getting Started
-
-The setup instructions depend on the final implementation. Once the source code and dependency files are available, add verified installation and execution commands here.
-
-### 1. Clone the repository
-
-```bash
-git clone <YOUR-REPOSITORY-URL>
-cd <YOUR-REPOSITORY-FOLDER>
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv .venv
-```
-
-### 3. Activate the environment
-
-**Windows PowerShell:**
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-**Linux or macOS:**
-
-```bash
-source .venv/bin/activate
-```
-
-### 4. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-These commands are setup examples, not confirmation that the application is currently runnable. Add the actual run command after verifying the implementation.
-
-## 🔐 Scope and Limitations
+## Scope and Limitations
 
 - Designed for fault diagnosis in a controlled network lab.
 - Does not automatically repair or reconfigure network devices.
@@ -162,7 +103,7 @@ These commands are setup examples, not confirmation that the application is curr
 - AI/ML is optional; the rule-based diagnostic baseline is the starting point.
 - Performance in a controlled lab does not guarantee equivalent performance in production networks.
 
-## 🤝 Hackathon Submission Requirements
+## Hackathon Submission Requirements
 
 For the AIORI-3 PS-035 submission, follow the latest instructions provided by the organisers:
 
@@ -172,23 +113,24 @@ For the AIORI-3 PS-035 submission, follow the latest instructions provided by th
 - Upload the PDF in accordance with `Proposed-structure-hackathon.pdf`.
 - Demonstrate the prototype to the mentor, including a pseudocode snippet.
 
-## 👥 Team
+## Team
 
 **Team Code:** `A3-PS005-TC016`
+
 **Team Name:** `AstroX`
 
 **Team Members:**
 - Angel Shiju
 - N. Muthukrishnan
-  
+
 **Mentor:**
 - Rakoth Kandan Sambandam
 
-## 📚 Reference
+## Reference
 
 AIORI-3 Hackathon, Problem Statement PS-035: *Evidence-Based Operator Network Fault Localisation*.
 
-**Project Video:** https://youtu.be/pOYqJGth2pU
+**Project Video:** [Watch on YouTube](https://youtu.be/pOYqJGth2pU)
 
 ---
 
